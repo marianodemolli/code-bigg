@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  width: 400px; height: 180px;
+}
+.App-citiesPage{
+  width: 50px; height: 50px;
+}
+.App-home{
+  width: 50px; height: 50px;
+}
+
+.App-header {
+  height: 50px;
+}
+
