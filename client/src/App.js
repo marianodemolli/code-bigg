@@ -3,12 +3,15 @@ import logo from './MYtineraryLogo.png';
 import citiesPageLogo from './circled-right-2.png';
 import homeLogo from './homeIcon.png';
 import './App.css';
+import CitiesList from './CitiesList';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
+
+const CITY_SERVICE_URL = 'http://localhost:5000/cities';
 
 class Logo extends React.Component {
   render(){
@@ -32,6 +35,12 @@ class Home extends React.Component {
 }
 
 class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      isFetching: false,
+      cities: ['1']};
+    }
   render(){
   return (
     <Router>
@@ -45,6 +54,9 @@ class App extends React.Component {
       <p>Want to buid your own MYtinerary? </p>
       <Log/>
       <Home/>
+      <p>{this.state.isFetching ? 'Fetching cities...' : ''}</p>
+        <CitiesList cities={this.state.cities} />
+
 
       <Switch>
       <Route path="/"></Route> 
@@ -56,5 +68,16 @@ class App extends React.Component {
     </Router>
   );
   }
+  componentDidMount() {
+    this.fetchCities()
+  }
+  fetchCities = () => {
+    this.setState({...this.state, isFetching: true})
+    fetch(CITY_SERVICE_URL)
+      .then(response => response.json())
+      .then(result => this.setState({cities: result, isFetching: false}))
+      .catch(e => console.log(e));
+  }
 }
+
 export default App;
