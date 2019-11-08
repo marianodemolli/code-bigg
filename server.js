@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const modelo = require('./City.js')
+const modelo = require('./City.js');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -20,7 +21,7 @@ app.get('/test',(req,res) => {
     res.send("Test Path");
 });
 
-app.get('/cities', async (req, res) => {
+app.get('/cities', cors(), async (req, res) => {
 
   if (res.status(200)){
       modelo.find({}).then (data => {
