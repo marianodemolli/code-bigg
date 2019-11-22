@@ -13,8 +13,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import {Provider} from 'react-redux';
-import store from './store';
+
 
 function App() {
   return (
