@@ -6,6 +6,7 @@ import Header from './components/header.js';
 import CitiesPage from './components/citiesPage.js';
 import LogIn from './components/logIn.js';
 import CreateAccount from './components/createAccount.js';
+import Itineraries from './components/ItineraryList'
 
 import {
   BrowserRouter as Router,
@@ -17,17 +18,18 @@ import {
 
 function App() {
   return (
-    <Router>
     <div className="App">
+      <Router>
       <Header /> 
       <Switch>
       <Route exact path='/' component={Home}/> 
       <Route path="/logIn" component={LogIn}/>  
       <Route path="/createAccount" component={CreateAccount}/> 
       <Route path="/citiesPage" component={CitiesPage}/>
+      <Route path="/itineraries/:id" component={Itineraries}/>
       </Switch>
-    </div>
     </Router>
+    </div>
   );
 }
 const Home = () => (

@@ -1,6 +1,7 @@
 import React from 'react';
 import {getCities} from '../actions/cityActions'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
  
 class CitiesList extends React.Component{
   constructor(props){
@@ -16,8 +17,8 @@ class CitiesList extends React.Component{
   }
 
   componentDidMount() {
-    console.log("this")
-    console.log(this)
+    // console.log("this")
+    // console.log(this)
     this.props.getCities()
   }
   render(){
@@ -25,7 +26,7 @@ class CitiesList extends React.Component{
     let filteredCities = this.props.cities.filter((city)=>{
       return city.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
     });
-    const cities = filteredCities.map(city => <p key={city._id}>{city.name + ", " + city.country}</p>);
+    const cities = filteredCities.map(city =>  <Link to={`./itineraries/${city._id}`}><p key={city._id}>{city.name + ", " + city.country}</p></Link>);
     return(
     <React.Fragment>
       <div>
@@ -43,8 +44,8 @@ class CitiesList extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-  console.log("state2")
-  console.log(state)
+  // console.log("state2")
+  // console.log(state)
   return {
     cities:state.cityReducer
   }

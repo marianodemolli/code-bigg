@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const modelo = require('./City.js');
 const modelo2 = require('./Itinerary.js');
@@ -31,6 +30,25 @@ app.get('/cities', cors(), async (req, res) => {
 }).catch( err => {console.log("err: " + err);});
 }
 });
+app.get('/itineraries', cors(), async (req, res) => {
+
+  if (res.status(200)){
+      modelo2.find({}).then (data => {
+          console.log("datos por consola: " + data);
+          res.json(data);
+}).catch( err => {console.log("err: " + err);});
+}
+});
+app.get('/itineraries/:city', cors(), async (req, res) => {
+  const city = req.params.city;
+  if (res.status(200)){
+      modelo2.find({city: city})
+      .populate('city')
+      .then (data => {
+          res.status(200).send(data);
+}).catch( err => {console.log("err: " + err);});
+}
+});
 app.post('/', (req, res) => {
   const newCity = new cityModel({
       name: req.body.name,
@@ -43,9 +61,5 @@ app.post('/', (req, res) => {
     .catch(err => {
     res.status(500).send("Server error")}) 
 });
-app.get('/itineraries/:city', function (req, res) {
-  res.send('Solicitaste ver un itinerario de la ciudad ' +req.params.city);
-});
-
 app.listen(port, () => console.log("Server running on port "+port));
 

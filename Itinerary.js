@@ -1,7 +1,10 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
-const ItinerarySchema = new Schema({
+var ItinerarySchema = new Schema({
+
+    city: {type: mongoose.Schema.Types.ObjectId, ref: 'cities'}, 
+    
     title: {
         type: String
     },
